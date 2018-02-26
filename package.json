@@ -2,9 +2,12 @@
   "name": "permanencierapi",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/app.js",
+    "doc": "yuidoc"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/Peterfurax/permanencierAPI/issues"
   },
-  "homepage": "https://github.com/Peterfurax/permanencierAPI#readme"
+  "homepage": "https://github.com/Peterfurax/permanencierAPI#readme",
+  "dependencies": {
+    "compression": "^1.7.2",
+    "express": "^4.16.2"
+  }
 }
