@@ -1,3 +1,4 @@
+const liste = require("../liste_journalistes")
 /**
  * Provides modules WEB server
  * @module WEB
@@ -12,6 +13,19 @@ const express = require("express");
  * @default {router}
  */
 const router = express.Router();
+
+/**
+ * Configure `router` to get `/json` authors
+ * @property /json
+ * @type {function}
+ * @default {json} json
+ */
+router.get("/json", (req, res) => {
+  console.log(liste)
+  res.json(liste).status(200);
+});
+
+
 
 /**
  * Configure `router` to get `/json` authors

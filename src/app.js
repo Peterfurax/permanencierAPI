@@ -9,7 +9,8 @@ const bodyParser = require("body-parser");
 const compression = require("compression");
 const port = process.env.PORT || 4001;
 const routes = require("./routes/index");
-
+const store = require("./lib/store")
+console.log(typeof store.perma)
 /**
 * Configure `app` to use `express()` 
 * @property app
