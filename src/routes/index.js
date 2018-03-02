@@ -38,12 +38,12 @@ const router = express.Router();
  */
 router.get("/listePerma", (req, res) => {
   // console.log(liste)
-  res.json([Autors_Re, mess, liste]).status(200);
+  res.json([Autors_Re, mess, liste]).status(201);
 });
 
 router.get("/save", (req, res) => {
   // console.log(liste)
-  res.json([Autors_Re, mess]).status(200);
+  res.json([Autors_Re, mess]).status(201);
 });
 
 router.get("/", (req, res) => {
@@ -57,14 +57,38 @@ router.get("/", (req, res) => {
  * @type {function}
  * @default {json} json
  */
-router.get("/perma/:authors/mess/:mess", (req, res) => {
-  Autors_Re = req.params.authors;
-  mess = req.params.mess;
-  console.dir(req.params.authors);
-  console.dir(req.params.mess);
-  res
-    .send("Merci les permanencier(es) vont être ==>" + req.params.authors)
-    .status(200);
-});
+// router.get("/datePar/:datePar/perma/:perma/messG/:messG/rcWeb/:rcWeb/urgence/:urgence/informatique/:informatique", (req, res) => {
+router.get(
+  "/datePar/:datePar/perma/:perma/general/:general/redacChefWeb/:redacChefWeb/urgence/:urgence/informatique/:informatique",
+  (req, res) => {
+    // // Autors_Re = req.params.authors;
+    // // mess = req.params.mess;
+    // // console.dir(req.params.authors);
+    console.dir(req.params.datePar);
+    console.dir(req.params.perma);
+    console.dir(req.params.general);
+    console.dir(req.params.redacChefWeb);
+    console.dir(req.params.urgence);
+    // console.dir(req.params.messG);
+    // console.dir(req.params.rcWeb);
+    // console.dir(req.params.urgence);
+    // console.dir(req.params.informatique);
+    res
+      .send(
+        "Merci les permanencier(es) vont être ==>" +
+          "DATE PAR " +
+          req.params.datePar +
+          " PERMA" +
+          req.params.perma +
+          " GENE" +
+          req.params.general +
+          " RCW" +
+          req.params.redacChefWeb +
+          " INFO" +
+          req.params.informatique
+      )
+      .status(201);
+  }
+);
 
 module.exports = router;
