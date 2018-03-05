@@ -1,9 +1,6 @@
-const liste = require("../liste_journalistes");
+const listeJournaliste = require("../liste_journalistes");
+var store = require("data-store")("my-app");
 
-let Autors_Re = "";
-let mess = "";
-
-// const liste = [1950, 1960, 1970, 1980, 1990, 2000, 2010];
 /**
  * Provides modules WEB server
  * @module WEB
@@ -19,17 +16,6 @@ const express = require("express");
  */
 const router = express.Router();
 
-// /**
-//  * Configure `router` to get `/json` authors
-//  * @property /json
-//  * @type {function}
-//  * @default {json} json
-//  */
-// router.get("/", (req, res) => {
-//   console.log(liste)
-//   res.json(liste).status(200);
-// });
-
 /**
  * Configure `router` to get `/json` authors
  * @property /json
@@ -37,18 +23,37 @@ const router = express.Router();
  * @default {json} json
  */
 router.get("/listePerma", (req, res) => {
-  // console.log(liste)
-  res.json([Autors_Re, mess, liste]).status(201);
+  res
+    .json([
+      {
+        datePar: store.get("datePar"),
+        perma: store.get("perma"),
+        general: store.get("general"),
+        redacChefWeb: store.get("redacChefWeb"),
+        urgence: store.get("urgence"),
+        informatique: store.get("informatique")
+      },
+      listeJournaliste
+    ])
+    .status(201);
 });
 
-router.get("/save", (req, res) => {
-  // console.log(liste)
-  res.json([Autors_Re, mess]).status(201);
-});
-
-router.get("/", (req, res) => {
-  // console.log(liste)
-  res.json(liste).status(200);
+router.get("/g/:gp", (req, res) => {
+  console.log(req.params);
+  // res
+  //   .json([
+  //     {
+  //       datePar: store.get("datePar"),
+  //       perma: store.get("perma"),
+  //       general: store.get("general"),
+  //       redacChefWeb: store.get("redacChefWeb"),
+  //       urgence: store.get("urgence"),
+  //       informatique: store.get("informatique")
+  //     },
+  //     listeJournaliste
+  //   ])
+  //   .status(201);
+  res.send("ds").status(201)
 });
 
 /**
@@ -61,34 +66,34 @@ router.get("/", (req, res) => {
 router.get(
   "/datePar/:datePar/perma/:perma/general/:general/redacChefWeb/:redacChefWeb/urgence/:urgence/informatique/:informatique",
   (req, res) => {
-    // // Autors_Re = req.params.authors;
-    // // mess = req.params.mess;
-    // // console.dir(req.params.authors);
-    console.dir(req.params.datePar);
-    console.dir(req.params.perma);
-    console.dir(req.params.general);
-    console.dir(req.params.redacChefWeb);
-    console.dir(req.params.urgence);
-    // console.dir(req.params.messG);
-    // console.dir(req.params.rcWeb);
-    // console.dir(req.params.urgence);
-    // console.dir(req.params.informatique);
+    if (req.params.datePar !== "null")
+      store.set({ datePar: req.params.datePar });
+    if (req.params.perma !== "null") store.set({ perma: req.params.perma });
+    if (req.params.general !== "null")
+      store.set({ general: req.params.general });
+    if (req.params.redacChefWeb !== "null")
+      store.set({ redacChefWeb: req.params.redacChefWeb });
+    if (req.params.urgence !== "null")
+      store.set({ urgence: req.params.urgence });
+    if (req.params.informatique !== "null")
+      store.set({ informatique: req.params.informatique });
     res
       .send(
         "Merci les permanencier(es) vont être ==>" +
-          "DATE PAR " +
+          "DATE PAR => " +
           req.params.datePar +
-          " PERMA" +
+          " PERMA => " +
           req.params.perma +
-          " GENE" +
+          " GENE => " +
           req.params.general +
-          " RCW" +
+          " RCW => " +
           req.params.redacChefWeb +
-          " INFO" +
+          " Urgence => " +
+          req.params.urgence +
+          " INFO => " +
           req.params.informatique
       )
       .status(201);
   }
 );
-
 module.exports = router;
