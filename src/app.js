@@ -59,6 +59,14 @@ app.use(bodyParser.json());
  */
 app.set("json spaces", 2);
 
+
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+
+
+
+
 /**
  * Configure `app` to use `compression()`
  * @property compressHttpResponse
@@ -70,5 +78,6 @@ const server = http.createServer(app);
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
 module.exports = {
-  app: app
+  app: app,
+  jsonParser:jsonParser
 };

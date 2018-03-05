@@ -1,6 +1,7 @@
 const listeJournaliste = require("../liste_journalistes");
 var store = require("data-store")("my-app");
-
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
 /**
  * Provides modules WEB server
  * @module WEB
@@ -38,23 +39,31 @@ router.get("/listePerma", (req, res) => {
     .status(201);
 });
 
-router.get("/g/:gp", (req, res) => {
-  console.log(req.params);
-  // res
-  //   .json([
-  //     {
-  //       datePar: store.get("datePar"),
-  //       perma: store.get("perma"),
-  //       general: store.get("general"),
-  //       redacChefWeb: store.get("redacChefWeb"),
-  //       urgence: store.get("urgence"),
-  //       informatique: store.get("informatique")
-  //     },
-  //     listeJournaliste
-  //   ])
-  //   .status(201);
-  res.send("ds").status(201)
-});
+// router.post("/go", (req, res) => {
+//   console.log("tata")
+//   console.log(req.body);
+//   res.send("ok").status(205)
+// });
+
+// POST /api/users gets JSON bodies
+router.post('/go', jsonParser, function (req, res) {
+  console.log(req.body)
+  if (!req.body) return res.sendStatus(400)
+  if (req.body) return res.sendStatus(201)
+  
+  // create user in req.body
+})
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Configure `router` to get `/json` authors
