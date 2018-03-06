@@ -57,6 +57,7 @@ router.post("/go", jsonParser, (req, res) => {
     if (RB.informatique !== null) store.set({ informatique: RB.informatique });
     res.sendStatus(201);
   }
+  console.log(store.get("perma"))
   res.end();
 });
 
