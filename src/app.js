@@ -3,18 +3,14 @@
  * @module WEB
  * @class  WEB server
  */
-const express = require("express");
+
 const http = require("http");
-const bodyParser = require("body-parser");
-const compression = require("compression");
+const express = require("express");
 const port = process.env.PORT || 4001;
 const routes = require("./routes/index");
-// const myStore = require("./lib/store");
+const compression = require("compression");
+const bodyParser = require("body-parser");
 
-// console.log(getStore.myStore)
-
-
-// console.log(myStore)
 /**
  * Configure `app` to use `express()`
  * @property app
@@ -59,14 +55,6 @@ app.use(bodyParser.json());
  */
 app.set("json spaces", 2);
 
-
-// create application/json parser
-var jsonParser = bodyParser.json()
-
-
-
-
-
 /**
  * Configure `app` to use `compression()`
  * @property compressHttpResponse
@@ -74,10 +62,12 @@ var jsonParser = bodyParser.json()
  */
 app.use(compression);
 
+// Init webServer
 const server = http.createServer(app);
-server.listen(port, () => console.log(`Listening on port ${port}`));
+
+// Init  webServer port listen
+server.listen(port, () => console.log(`Permanencier API On Port : ${port}`));
 
 module.exports = {
-  app: app,
-  jsonParser:jsonParser
+  app: app
 };

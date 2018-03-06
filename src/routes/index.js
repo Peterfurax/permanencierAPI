@@ -1,6 +1,6 @@
 const listeJournaliste = require("../liste_journalistes");
 var store = require("data-store")("my-app");
-var bodyParser = require('body-parser');
+var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
 /**
  * Provides modules WEB server
@@ -39,70 +39,25 @@ router.get("/listePerma", (req, res) => {
     .status(201);
 });
 
-// router.post("/go", (req, res) => {
-//   console.log("tata")
-//   console.log(req.body);
-//   res.send("ok").status(205)
-// });
-
-// POST /api/users gets JSON bodies
-router.post('/go', jsonParser, function (req, res) {
-  console.log(req.body)
-  if (!req.body) return res.sendStatus(400)
-  if (req.body) return res.sendStatus(201)
-  
-  // create user in req.body
-})
-
-
-
-
-
-
-
-
-
-
-
-
 /**
- * Configure `router` to get `/json` authors
- * @property /json
+ * Configure `router` to receice post from clt
+ * @property /go
  * @type {function}
- * @default {json} json
+ * @default {httpStatus}
  */
-// router.get("/datePar/:datePar/perma/:perma/messG/:messG/rcWeb/:rcWeb/urgence/:urgence/informatique/:informatique", (req, res) => {
-router.get(
-  "/datePar/:datePar/perma/:perma/general/:general/redacChefWeb/:redacChefWeb/urgence/:urgence/informatique/:informatique",
-  (req, res) => {
-    if (req.params.datePar !== "null")
-      store.set({ datePar: req.params.datePar });
-    if (req.params.perma !== "null") store.set({ perma: req.params.perma });
-    if (req.params.general !== "null")
-      store.set({ general: req.params.general });
-    if (req.params.redacChefWeb !== "null")
-      store.set({ redacChefWeb: req.params.redacChefWeb });
-    if (req.params.urgence !== "null")
-      store.set({ urgence: req.params.urgence });
-    if (req.params.informatique !== "null")
-      store.set({ informatique: req.params.informatique });
-    res
-      .send(
-        "Merci les permanencier(es) vont être ==>" +
-          "DATE PAR => " +
-          req.params.datePar +
-          " PERMA => " +
-          req.params.perma +
-          " GENE => " +
-          req.params.general +
-          " RCW => " +
-          req.params.redacChefWeb +
-          " Urgence => " +
-          req.params.urgence +
-          " INFO => " +
-          req.params.informatique
-      )
-      .status(201);
+router.post("/go", jsonParser, (req, res) => {
+  const RB = req.body;
+  if (!RB) res.sendStatus(400);
+  if (RB) {
+    if (RB.datePar !== null) store.set({ datePar: RB.datePar });
+    if (RB.perma !== null) store.set({ perma: RB.perma });
+    if (RB.general !== null) store.set({ general: RB.general });
+    if (RB.redacChefWeb !== null) store.set({ redacChefWeb: RB.redacChefWeb });
+    if (RB.urgence !== null) store.set({ urgence: RB.urgence });
+    if (RB.informatique !== null) store.set({ informatique: RB.informatique });
+    res.sendStatus(201);
   }
-);
+  res.end();
+});
+
 module.exports = router;
